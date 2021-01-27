@@ -1,0 +1,51 @@
+<odoo>
+  <data>
+  <record model="ir.ui.view" id="coperativa.listado_socios_form">
+      <field name="name">Formulario de socios</field>
+      <field name="model">coperativa.socio_model</field>
+      <field name="arch" type="xml">
+        <form string="Nuevo socio">
+          <sheet>
+                <group name="GrupoPadre">
+                  <group name="GrupoIzq">      
+                    <field name="id_socio"/>
+                    <field name="name"/>
+                    <field name="dni"/>
+                    <field name="telf"/>
+                    <field name="saldo"/>
+                  </group>
+                  <group name="GrupoDer">
+                    <field name="foto"/>
+                    <field name="apellidos"/>
+                    <field name="fechaAlta"/>
+                    <field name="email"/>
+                  </group>
+                  <field name="campana_id_s"/>
+                </group>            
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="coperativa.listado_socio_tree">
+      <field name="name">Listado de socios</field>
+      <field name="model">coperativa.socio_model</field>
+      <field name="arch" type="xml">
+        <tree>
+            <field name="id_socio"/>
+            <field name="dni"/>
+            <field name="name"/>
+            <field name="apellidos"/>
+            <field name="fechaAlta"/>
+            <field name="saldo"/>
+            <field name="numero_registros"/>
+        </tree>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="coperativa.action_window_socio">
+      <field name="name">Socios</field>
+      <field name="res_model">coperativa.socio_model</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+  </data>
+</odoo>

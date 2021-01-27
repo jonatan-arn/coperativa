@@ -1,0 +1,45 @@
+<odoo>
+  <data>
+  <record model="ir.ui.view" id="coperativa.listado_campana_form">
+      <field name="name">Formulario de campañas</field>
+      <field name="model">coperativa.campana_model</field>
+      <field name="arch" type="xml">
+        <form string="Nuevo campaña">
+        <header>
+        <button name="saldo" type="object" string="Actualizar saldos"  />
+        <button name="act_kilos" type="object" string="Actualizar Kilos"  />
+        </header>
+          <sheet>
+                <group name="GrupoPadre">   
+                    <field name="campana"/>
+                    <field name="fecha"/>
+                    <field name="socio"/>
+                    <field name="producto"/>
+                    <field name="kilo"/>
+                </group>            
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="coperativa.listado_campana_tree">
+      <field name="name">Listado de campañas</field>
+      <field name="model">coperativa.campana_model</field>
+      <field name="arch" type="xml">
+        <tree>
+                   <field name="campana"/>
+                    <field name="fecha"/>
+                    <field name="socio"/>
+                    <field name="producto"/>
+                    <field name="kilo"/>
+        </tree>
+      </field>
+    </record>
+    
+    <record model="ir.actions.act_window" id="coperativa.action_window_campana">
+      <field name="name">Campañas</field>
+      <field name="res_model">coperativa.campana_model</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+  </data>
+</odoo>

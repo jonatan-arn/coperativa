@@ -1,0 +1,42 @@
+<odoo>
+  <data>
+  <record model="ir.ui.view" id="coperativa.listado_producto_form">
+      <field name="name">Formulario de productos</field>
+      <field name="model">coperativa.producto_model</field>
+      <field name="arch" type="xml">
+        <form string="Nuevo producto">
+        <header>
+        <button name="borrar_kilos" type="object" string="Eliminar Kilos"  />
+        </header>
+          <sheet>
+                <group name="GrupoPadre">   
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="precio"/>
+                    <field name="kilos"/>
+                </group>            
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="coperativa.listado_producto_tree">
+      <field name="name">Listado de productos</field>
+      <field name="model">coperativa.producto_model</field>
+      <field name="arch" type="xml">
+        <tree>
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="precio"/>
+                    <field name="kilos"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="coperativa.action_window_producto">
+      <field name="name">Productos</field>
+      <field name="res_model">coperativa.producto_model</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+  </data>
+</odoo>
