@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
-import datetime,re
+import re
+from datetime import datetime
 from odoo.exceptions import ValidationError
 
 class socio_model(models.Model):
@@ -9,21 +10,29 @@ class socio_model(models.Model):
     _description = 'modulo de socios'
     
     id_socio = fields.Integer(String = "id del socio",index= True,required=True)
-    foto = fields.Binary(String = "Foto",index= True,required=False)
-    name = fields.Char(string="Nombre",index=True,required=True)
-    apellidos = fields.Char(string="Apellidos",index=True,required=True)
+    foto = fields.Binary(String = "Foto",required=False)
+    name = fields.Char(string="Nombre",required=True)
+    apellidos = fields.Char(string="Apellidos",required=True)
     dni = fields.Char(string="Dni",index=True,required=True)
-    fechaAlta = fields.Date(string="Fecha de alta del socio",index=True,required=True,default=fields.date.today())
-    telf = fields.Integer(String = "telefono",index= True,required=True,size="9")
-    email = fields.Char(string="correo electronico",index=True,required=True)
+    fechaAlta = fields.Date(string="Fecha de alta del socio",required=True,default=lambda self:datetime.today())
+    telf = fields.Char(String = "telefono" ,required=True)
+    email = fields.Char(string="correo electronico",required=True)
     saldo = fields.Float(string="Saldo del socio",default=0,readonly=True)
-    campana_id_s = fields.One2many("coperativa.campana_model","socio")
+    registros = fields.One2many("coperativa.campana_model","socio",string="Registros de las campañas")
     numero_registros = fields.Integer(string="numero de registros",default=0,compute="setRegistro")
     _sql_constraints = [('sql_constraints_dni', 'unique(dni)', 'Ese dni ya existe'),
     ('sql_constraints_id', 'unique(id_socio)', 'Ese id socio ya existe')]
     
+
+
+    @api.constrains('telf')
+    def validate_telf(self):
+        if len(self.telf)!=9:
+            raise ValidationError("Error telefono menor de 9 digitos")
+
+
     def setRegistro(self):
-        self.numero_registros=len(self.campana_id_s)
+        self.numero_registros=len(self.registros)
         
     @api.constrains('email')
     def validate_email(self):

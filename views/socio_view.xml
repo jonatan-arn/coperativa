@@ -20,7 +20,7 @@
                     <field name="fechaAlta"/>
                     <field name="email"/>
                   </group>
-                  <field name="campana_id_s"/>
+                  <field name="registros"/>
                 </group>            
           </sheet>
         </form>

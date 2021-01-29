@@ -6,8 +6,8 @@
       <field name="arch" type="xml">
         <form string="Nuevo campaña">
         <header>
-        <button name="saldo" type="object" string="Actualizar saldos"  />
-        <button name="act_kilos" type="object" string="Actualizar Kilos"  />
+        <button name="saldo" type="object" string="Actualizar saldos y actualizar kilos totales"  />
+        
         </header>
           <sheet>
                 <group name="GrupoPadre">   

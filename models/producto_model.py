@@ -20,17 +20,18 @@ class producto_model(models.Model):
 
 
     def borrar_kilos(self):
-        listaProducto = self.kilos
+        listaProducto = self.search(["kilos",">","0"])
         for rec in listaProducto:
             rec.kilos=0
 
     @api.constrains('precio')
     def validate_precio(self):
+        self.ensure_one()
         if not self.comprovar_precio():
             raise ValidationError("Error el precio no puede ser menor de 0")
 
     def comprovar_precio(self):
-        if self.precio<0:
+        if self.precio<=0:
             return False
         
         return True

@@ -8,30 +8,26 @@ class campana_model(models.Model):
     _name = 'coperativa.campana_model'
     _description = 'modulo de campañas'
     
-    fecha = fields.Date(string="Fecha inicio de la campaña",index=True,required=True,default=fields.date.today())
+    fecha = fields.Datetime(string="Fecha inicio de la campaña",index=True,required=True,default=lambda self:datetime.datetime.now())
     campana = fields.Integer(string="Fecha de la campaña",index=True,required=True,compute="calc_año")
-    socio = fields.Many2one("coperativa.socio_model")
-    producto = fields.Many2one("coperativa.producto_model")
+    socio = fields.Many2one("coperativa.socio_model",required=True)
+    producto = fields.Many2one("coperativa.producto_model",required=True)
     kilo = fields.Float(String = "Cantidad",index= True,required=True,default=0)
+    active = fields.Boolean(readonly=True,default=True)
     
-    _sql_constraints = [('sql_constraints_name_P', 'unique(name)', 'Ese producto ya existe')]
 
     def saldo(self):
-        listaSocios = self.socio
-        listaProducto = self.producto
-        for s in listaSocios:            
-                for p in listaProducto:    
-                    s.saldo = s.saldo + self.kilo*p.precio
-                    s.numero_registros=0
+        listaSocios = self.search([("active","=","True")])
+        for s in listaSocios:
+            s.producto.kilos+=s.kilo
+            s.socio.saldo+=s.kilo*s.producto.precio
+            s.active=False
 
-    def act_kilos(self):
-        listaProducto = self.producto
-        
-        for p in listaProducto:
-            p.kilos=p.kilos+self.kilo
+    
+            
 
     def calc_año(self):
-        self.ensure_one()
+        
         hoy = datetime.date.today()
         self.campana = int(hoy.year)
 
